@@ -3095,14 +3095,17 @@ var tempDoublePtr = STATICTOP;
 STATICTOP += 16;
 assert(tempDoublePtr % 8 == 0);
 function _Connect() {
- Shared.connection = (new signalR.HubConnectionBuilder).withUrl("http://localhost:60568/rabbitmqclienthub", {
+ const connection = (new signalR.HubConnectionBuilder).withUrl("http://localhost:60568/rabbitmqclienthub", {
   skipNegotiation: true,
   transport: signalR.HttpTransportType.WebSockets
  }).configureLogging(signalR.LogLevel.Information).build();
- Shared.connection.start().then((function() {
-  Shared.connection.invoke("SendMessage", "Hello from unity");
+ connection.start().then((function() {
+  connection.invoke("SendMessage", "Hello from unity");
   console.log("connected");
  }));
+ return {
+  connecttion: connection
+ };
 }
 function _Hello() {
  window.alert("Hello, world!");
@@ -9041,7 +9044,7 @@ function _SDL_GL_SwapBuffers() {
 }
 function _SendSiblingData(data) {
  console.log("Sending data!");
- Shared.connection.invoke("SiblingData", data);
+ conn.connection.invoke("SiblingData", data);
 }
 function ___cxa_allocate_exception(size) {
  return _malloc(size);
