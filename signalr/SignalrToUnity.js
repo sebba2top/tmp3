@@ -8,8 +8,8 @@ function StartConnection() {
     .configureLogging(signalR.LogLevel.Information)
     .build();
   this.connection.on("ReceiveSiblingData", function (data) {
-    console.log("ReceiveSibling2");
-    game.SendMessage("SignalR", 'UnpackSiblingData', data)
+    console.log("ReceiveSibling2: " + data);
+    game.SendMessage("SignalR", 'UnpackSiblingData', "data")
   });
   this.connection.on("ReceiveMessage", function () {
     console.log("lmao");
