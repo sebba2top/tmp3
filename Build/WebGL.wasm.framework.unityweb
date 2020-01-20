@@ -3104,7 +3104,7 @@ function _Connect() {
  }).configureLogging(signalR.LogLevel.Information).build();
  this.connection.on("ReceiveSiblingData", (function(data) {
   console.log("ReceiveSibling1");
-  game.SendMessage("SignalR", "UnpackSiblingData", data);
+  game.SendMessage("SignalR", "UnpackSiblingData", "data");
  }));
  this.connection.on("ReceiveMessage", (function() {
   console.log("lmao1");
