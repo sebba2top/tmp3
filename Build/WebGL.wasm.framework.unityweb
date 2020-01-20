@@ -3102,6 +3102,14 @@ function _Connect() {
   skipNegotiation: true,
   transport: signalR.HttpTransportType.WebSockets
  }).configureLogging(signalR.LogLevel.Information).build();
+ this.connection.on("ReceiveSiblingData", (function(data) {
+  console.log("ReceiveSibling1");
+  game.SendMessage("SignalR", "UnpackSiblingData", data);
+ }));
+ this.connection.on("ReceiveMessage", (function() {
+  console.log("lmao1");
+  game.SendMessage("SignalR", "SignalRHere");
+ }));
  connection.start().then((function() {
   connection.invoke("SendMessage", "Hello from unity");
   console.log("connected");
