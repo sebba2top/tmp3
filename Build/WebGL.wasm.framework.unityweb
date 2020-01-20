@@ -3094,8 +3094,11 @@ Module["STATIC_BUMP"] = STATIC_BUMP;
 var tempDoublePtr = STATICTOP;
 STATICTOP += 16;
 assert(tempDoublePtr % 8 == 0);
+var globalconnection = {
+ instance: {}
+};
 function _Connect() {
- const connection = (new signalR.HubConnectionBuilder).withUrl("http://localhost:60568/rabbitmqclienthub", {
+ var connection = (new signalR.HubConnectionBuilder).withUrl("http://localhost:60568/rabbitmqclienthub", {
   skipNegotiation: true,
   transport: signalR.HttpTransportType.WebSockets
  }).configureLogging(signalR.LogLevel.Information).build();
@@ -3103,6 +3106,7 @@ function _Connect() {
   connection.invoke("SendMessage", "Hello from unity");
   console.log("connected");
  }));
+ console.log("globalconnection: " + globalconnection);
  globalconnection.instance = connection;
 }
 function _Hello() {
